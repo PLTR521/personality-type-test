@@ -3,107 +3,52 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>결 성격유형 검사 · 16유형+정서 32프로필</title>
-<meta name="description" content="Big Five(5요인) 기반으로 설계한 60문항 성격유형 검사. 4글자 유형과 정서 접미사, 하위 측면 10개, 응답 신뢰도, 궁합까지 한 번에 확인하세요.">
-<meta property="og:title" content="결 성격유형 검사">
-<meta property="og:description" content="60문항 · 약 10분 · 유형, 강점, 추천 직업, 궁합까지">
+<title>결 성격유형 테스트 · 10문항 1분 컷</title>
+<meta name="description" content="10문항, 1분이면 끝나는 재미로 보는 성격유형 테스트. 내 유형과 강점, 어울리는 직업, 잘 맞는 유형까지 바로 확인하세요.">
+<meta property="og:title" content="결 성격유형 테스트">
+<meta property="og:description" content="10문항 · 1분 · 16유형 + 정서 -C/-E">
 <meta name="theme-color" content="#6d5dfc">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%236d5dfc'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='white' font-family='sans-serif'%3E%EA%B2%B0%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="#" data-go="start">결<span>성격유형 검사</span></a>
-  <nav>
-    <button class="link" data-go="types">16유형</button>
-    <button class="link" data-go="compat">궁합</button>
-  </nav>
+  <a class="brand" href="#" data-go="start">결<span>성격유형 테스트</span></a>
+  <button class="link" data-go="types">16유형</button>
 </header>
 
 <main id="app">
-  <!-- 시작 -->
   <section id="screen-start" class="screen">
-    <div class="hero card">
-      <p class="eyebrow">Big Five 기반 · 60문항 · 약 10분</p>
-      <h1>나는 어떤 사람일까?<br>이번에는 <em>연속 점수</em>로 확인해요</h1>
-      <p class="lead">둘 중 하나로 잘라 버리는 대신, 5개 축을 0~100%로 측정합니다. 4글자 유형에 정서 접미사(-C/-E)를 붙여 32가지 프로필로 알려 드려요.</p>
-      <div class="actions">
-        <button id="btn-start" class="btn primary big">검사 시작하기</button>
-        <button id="btn-resume" class="btn big" hidden>이어서 하기</button>
-      </div>
-      <p class="hint">질문과 순서는 항상 같습니다. 정답은 없으니 첫 느낌대로 솔직하게 답해 주세요.</p>
-    </div>
-
-    <div class="grid3">
-      <div class="card mini"><h3>5개 축</h3><p>에너지·인식·판단·생활·정서. MBTI 4축에 정서 안정성을 더했습니다.</p></div>
-      <div class="card mini"><h3>7점 척도</h3><p>"그렇다/아니다"가 아니라 정도를 답해 경계선에 있는 성향도 잡아냅니다.</p></div>
-      <div class="card mini"><h3>응답 신뢰도</h3><p>모순되거나 성의 없는 응답이 많으면 결과 위에 알려 드립니다.</p></div>
-    </div>
-
-    <div class="card">
-      <h2>유형 코드는 이렇게 읽어요</h2>
-      <div class="codeguide">
-        <div><b>O / R</b><span>외향 · 내향</span></div>
-        <div><b>V / G</b><span>탐구 · 현실</span></div>
-        <div><b>H / L</b><span>공감 · 원칙</span></div>
-        <div><b>S / F</b><span>계획 · 유연</span></div>
-        <div><b>- C / E</b><span>안정 · 민감</span></div>
-      </div>
-      <p class="hint">예) <b>OVHF-C</b> = 외향 · 탐구 · 공감 · 유연 · 안정</p>
+    <div class="card hero">
+      <p class="eyebrow">10문항 · 약 1분</p>
+      <h1>나는 어떤<br><em>유형</em>일까?</h1>
+      <p class="lead">가볍게 10문항만 답하면 나의 성격유형, 강점, 어울리는 직업, 잘 맞는 유형까지 바로 알려 드려요.</p>
+      <button id="btn-start" class="btn primary big">시작하기</button>
+      <p class="hint">정답은 없어요. 첫 느낌대로 골라 주세요.</p>
     </div>
   </section>
 
-  <!-- 검사 -->
   <section id="screen-quiz" class="screen" hidden>
-    <div class="progress-wrap">
-      <div class="progress"><div id="progress-bar"></div></div>
-      <div class="progress-text"><span id="progress-count">0 / 60</span><span id="page-count">1 / 10</span></div>
+    <div class="progress"><div id="progress-bar"></div></div>
+    <p id="progress-text" class="progress-text"></p>
+    <div class="card q">
+      <p id="q-text" class="q-text"></p>
+      <div id="q-choices" class="choices"></div>
     </div>
-    <div id="questions"></div>
-    <p id="quiz-msg" class="msg" role="alert" hidden></p>
-    <div class="actions between">
-      <button id="btn-prev" class="btn">이전</button>
-      <button id="btn-next" class="btn primary">다음</button>
-    </div>
+    <button id="btn-prev" class="btn">이전</button>
   </section>
 
-  <!-- 결과 -->
   <section id="screen-result" class="screen" hidden></section>
 
-  <!-- 유형 전체 -->
   <section id="screen-types" class="screen" hidden>
     <h2 class="page-title">16유형 한눈에 보기</h2>
-    <p class="hint">카드를 눌러 각 유형의 상세 설명을 확인하세요.</p>
     <div id="types-grid"></div>
   </section>
 
-  <!-- 유형 상세 -->
   <section id="screen-typedetail" class="screen" hidden></section>
-
-  <!-- 궁합 -->
-  <section id="screen-compat" class="screen" hidden>
-    <h2 class="page-title">궁합 계산기</h2>
-    <p class="hint">두 사람의 유형을 고르면 축별 조합을 분석해 드려요. 재미와 참고용이며 관계를 예언하는 도구는 아닙니다.</p>
-    <div class="card compat-form">
-      <div class="compat-col">
-        <h3>나</h3>
-        <label>4글자 유형<select id="cmp-a-type"></select></label>
-        <label>정서<select id="cmp-a-emo"><option value="C">안정형 (C)</option><option value="E">민감형 (E)</option></select></label>
-      </div>
-      <div class="compat-col">
-        <h3>상대</h3>
-        <label>4글자 유형<select id="cmp-b-type"></select></label>
-        <label>정서<select id="cmp-b-emo"><option value="C">안정형 (C)</option><option value="E">민감형 (E)</option></select></label>
-      </div>
-    </div>
-    <div id="compat-result"></div>
-  </section>
 </main>
 
-<footer class="footer">
-  <p id="notice"></p>
-</footer>
-
+<footer class="footer"><p id="notice"></p></footer>
 <div id="toast" class="toast" role="status" hidden></div>
 
 <script src="js/questions.js"></script>
